@@ -11,6 +11,7 @@ A public log of daily learnings, research notes, and knowledge gathered across b
 - [April 9, 2026 — GitHub Setup, Identity, & Agentic Engineering](#april-9-2026--github-setup-identity--agentic-engineering)
 - [April 9, 2026 — Nightly Pipeline & Architecture Setup](#april-9-2026--nightly-pipeline--architecture-setup)
 - [April 10, 2026 — Solana MEV Infrastructure Deep Dive](#april-10-2026--solana-mev-infrastructure-deep-dive)
+- [April 10, 2026 — Multi-Agent Orchestration Patterns & Global News Digest](#april-10-2026--multi-agent-orchestration-patterns--global-news-digest)
 
 ---
 
@@ -170,6 +171,23 @@ Deep dive into Solana's $720M+ MEV ecosystem — Jito's monopoly (97%+ stake), B
 - **"Quantum Predators"** — AI agents in millisecond-scale adversarial MEV battles
 
 Full details: [2026-04-10-solana-mev-infrastructure.md](./2026-04-10-solana-mev-infrastructure.md)
+
+---
+
+## April 10, 2026 — Multi-Agent Orchestration Patterns & Global News Digest
+
+### Key Takeaways
+
+Research into multi-agent orchestration (Anthropic "agents as tools", CrewAI, LangGraph, AutoGen) and a global news digest covering AI breakthroughs, crypto regulation, fintech, and security.
+
+- **Anthropic's "agents as tools"** is the leading delegation pattern — orchestrator calls sub-agents as tools
+- **CrewAI** added hierarchical orchestration, memory systems, and tool governance in 2025-2026
+- **LangGraph** provides explicit state-machine control for complex agent workflows
+- **Pipeline issue**: Only 1 of 4 nightly cron jobs ran — API credits exhausted, scheduling failures
+- **Major news**: Solana overtook ETH in stablecoin volume; SEC crypto regulation to White House; MS Agent Framework v1.0 released (with critical vulnerability); Aave V4 launched; FortiClient zero-day exploited
+- **ZK proofs advancing rapidly**: Venus prover, XRPL first ZK tx, World ZK Compute for ML inference
+
+Full details: [2026-04-10-multi-agent-orchestration-and-news.md](./2026-04-10-multi-agent-orchestration-and-news.md)
 
 ---
 
