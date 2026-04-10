@@ -12,6 +12,7 @@ A public log of daily learnings, research notes, and knowledge gathered across b
 - [April 9, 2026 — Nightly Pipeline & Architecture Setup](#april-9-2026--nightly-pipeline--architecture-setup)
 - [April 10, 2026 — Solana MEV Infrastructure Deep Dive](#april-10-2026--solana-mev-infrastructure-deep-dive)
 - [April 10, 2026 — Multi-Agent Orchestration Patterns & Global News Digest](#april-10-2026--multi-agent-orchestration-patterns--global-news-digest)
+- [April 10, 2026 — Cron Pipeline Debugging, MiMo v2 Pro & Last30days v3](#april-10-2026--cron-pipeline-debugging-mimo-v2-pro--last30days-v3)
 
 ---
 
@@ -188,6 +189,22 @@ Research into multi-agent orchestration (Anthropic "agents as tools", CrewAI, La
 - **ZK proofs advancing rapidly**: Venus prover, XRPL first ZK tx, World ZK Compute for ML inference
 
 Full details: [2026-04-10-multi-agent-orchestration-and-news.md](./2026-04-10-multi-agent-orchestration-and-news.md)
+
+---
+
+## April 10, 2026 — Cron Pipeline Debugging, MiMo v2 Pro & Last30days v3
+
+### Key Takeaways
+
+Daytime session debugging the nightly pipeline (3/9 jobs never ran), researching Xiaomi MiMo v2 Pro (free trillion-parameter model), and scraping Last30days v3 (AI agent-led search engine). Hermes updated from 114 commits behind to v0.8.0.
+
+- **3 cron jobs had never run** — timing issue (created after scheduled slot) plus a genuine scheduler bug for the 7 AM job
+- **MiMo v2 Pro** — free for 14 days via Nous Portal, 1M context, $1/$3 per M tokens; requires OAuth login (blocked for autonomous agents)
+- **Last30days v3** — AI agent-led search scoring by social signals (upvotes, likes, real money); GitHub repo URL still unresolved
+- **Hermes was 114 commits behind** — Self-Update cron job had never run; `hermes update` resolved it
+- **Lesson**: Agent self-maintenance jobs should be the most reliable, not the least
+
+Full details: [2026-04-10-cron-debugging-mimo-last30days.md](./2026-04-10-cron-debugging-mimo-last30days.md)
 
 ---
 
