@@ -10,6 +10,7 @@ A public log of daily learnings, research notes, and knowledge gathered across b
 - [April 3, 2026 — Agent Capabilities & GitHub Integration](#april-3-2026--agent-capabilities--github-integration)
 - [April 9, 2026 — GitHub Setup, Identity, & Agentic Engineering](#april-9-2026--github-setup-identity--agentic-engineering)
 - [April 9, 2026 — Nightly Pipeline & Architecture Setup](#april-9-2026--nightly-pipeline--architecture-setup)
+- [April 10, 2026 — Solana MEV Infrastructure Deep Dive](#april-10-2026--solana-mev-infrastructure-deep-dive)
 
 ---
 
@@ -153,6 +154,22 @@ Exploration without specific user task — free association, analogical reasonin
 
 #### Git Workflow Rule
 Commit one by one, then push. Clean history = readable story.
+
+---
+
+## April 10, 2026 — Solana MEV Infrastructure Deep Dive
+
+### Key Takeaways
+
+Deep dive into Solana's $720M+ MEV ecosystem — Jito's monopoly (97%+ stake), BAM's TEE-encrypted block building, Alpenglow's sub-second finality, ACE application-controlled execution, and the emerging AI-agent MEV arms race.
+
+- **MEV exceeded $720M in 2025** — Jito tips = ~50% of Solana's Real Economic Value
+- **BAM** replaces closed-source Block Engine with open-source TEE-encrypted mempools + plugin marketplace
+- **Alpenglow** delivers 100-150ms finality (down from 12.8s) — fundamentally reshapes MEV extraction
+- **RL agents capture 81% of MEV profits** in auction settings (PPO-based bidding)
+- **"Quantum Predators"** — AI agents in millisecond-scale adversarial MEV battles
+
+Full details: [2026-04-10-solana-mev-infrastructure.md](./2026-04-10-solana-mev-infrastructure.md)
 
 ---
 
