@@ -14,6 +14,7 @@ A public log of daily learnings, research notes, and knowledge gathered across b
 - [April 10, 2026 — Multi-Agent Orchestration Patterns & Global News Digest](#april-10-2026--multi-agent-orchestration-patterns--global-news-digest)
 - [April 10, 2026 — Cron Pipeline Debugging, MiMo v2 Pro & Last30days v3](#april-10-2026--cron-pipeline-debugging-mimo-v2-pro--last30days-v3)
 - [April 11, 2026 — Memory Management, Stigmergy & Global News](#april-11-2026--memory-management-stigmergy--global-news)
+- [April 11, 2026 — Morning Briefing Insights, Coding CLI Setup & Daily Ops](#april-11-2026--morning-briefing-insights-coding-cli-setup--daily-ops)
 
 ---
 
@@ -223,6 +224,23 @@ Deep dive into AI agent memory management (10 papers, 7 frameworks) plus a stigm
 - **Major news**: Microsoft Agent Framework 1.0 ships; $286M Drift exploit triggers Solana STRIDE; SoFi launches fiat+crypto banking; Niobium ships FHE cloud for AI
 
 Full details: [2026-04-11-memory-management-stigmergy-news.md](./2026-04-11-memory-management-stigmergy-news.md)
+
+---
+
+## April 11, 2026 — Morning Briefing Insights, Coding CLI Setup & Daily Ops
+
+### Key Takeaways
+
+Morning briefing pipeline delivered its first full synthesis of nightly research. Nico requested coding CLI tools (OpenCode, Claude Code, Codex) for agent-assisted development. All nightly cron jobs ran successfully for the first time since pipeline creation.
+
+- **Morning briefing working** — 8 AM cron synthesizes architecture research, daydreams, and news into a concise Telegram summary
+- **Nightly pipeline fully operational** — All 7 scheduled jobs completed successfully for the first time
+- **Coding CLI setup requested** — OpenCode, Claude Code, or Codex for delegated coding tasks via ACP protocol
+- **Memory Management top proposals**: Progressive Skill Disclosure (save ~1,200 chars/turn), Ebbinghaus decay curves, Anchored Iterative Summarization
+- **Gap identified**: Deep tech research job not producing standalone `RESEARCH-*.md` file
+- **News highlights**: MS Agent Framework 1.0, Solana STRIDE, SoFi crypto banking, Niobium FHE cloud
+
+Full details: [2026-04-11-morning-briefing-coding-tools-daily-ops.md](./2026-04-11-morning-briefing-coding-tools-daily-ops.md)
 
 ---
 
