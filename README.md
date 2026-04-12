@@ -16,6 +16,7 @@ A public log of daily learnings, research notes, and knowledge gathered across b
 - [April 11, 2026 — Memory Management, Stigmergy & Global News](#april-11-2026--memory-management-stigmergy--global-news)
 - [April 11, 2026 — Morning Briefing Insights, Coding CLI Setup & Daily Ops](#april-11-2026--morning-briefing-insights-coding-cli-setup--daily-ops)
 - [April 12, 2026 — Travelling Wave Memory Architecture & Stablecoin Convergence](#april-12-2026--travelling-wave-memory-architecture--stablecoin-convergence)
+- [April 12, 2026 — Procurement-Engine Testing Branch, E2E Flow & Daytime Ops](#april-12-2026--procurement-engine-testing-branch-e2e-flow--daytime-ops)
 
 ---
 
@@ -274,6 +275,24 @@ Cross-domain synthesis connecting mycorrhizal fungal networks, stigmergic pressu
 - arch-2026-04-12.md — did not run
 
 Full details: [2026-04-12-travelling-wave-memory-stablecoin-convergence.md](./2026-04-12-travelling-wave-memory-stablecoin-convergence.md)
+
+---
+
+## April 12, 2026 — Procurement-Engine Testing Branch, E2E Flow & Daytime Ops
+
+### Key Takeaways
+
+Hands-on development on the Procurement-Engine project: Nico directed creation of a `testing` branch, API hosting, frontend build, and end-to-end buyer→system→provider proposal flow testing. GPT-5.4 was used via OpenAI Codex for the first time on this project.
+
+- **Testing branch requested** — Pull latest, create `testing` branch, build API + frontend, validate buyer proposal flow end-to-end
+- **End-to-end flow**: Buyer posts proposal → system dashboard verifies live → provider marketplace view → provider submits bid → buyer reviews
+- **GPT-5.4 via OpenAI Codex** used for this session — first time for Procurement-Engine work
+- **Nightly pipeline**: 2 of 4 jobs failed again (RESEARCH + architecture) — recurring issue needs investigation
+- **Morning briefing**: Synthesized travelling-wave memory model + stablecoin convergence news
+- **Daydream output**: Memory fusion algorithm proposal — >70% topic overlap triggers merge, memories fuse rather than delete
+- **Security**: 16,000+ Fortinet devices compromised via symlink backdoor (flagged from overnight news)
+
+Full details: [2026-04-12-procurement-engine-testing-e2e.md](./2026-04-12-procurement-engine-testing-e2e.md)
 
 ---
 
