@@ -17,6 +17,7 @@ A public log of daily learnings, research notes, and knowledge gathered across b
 - [April 11, 2026 — Morning Briefing Insights, Coding CLI Setup & Daily Ops](#april-11-2026--morning-briefing-insights-coding-cli-setup--daily-ops)
 - [April 12, 2026 — Travelling Wave Memory Architecture & Stablecoin Convergence](#april-12-2026--travelling-wave-memory-architecture--stablecoin-convergence)
 - [April 12, 2026 — Procurement-Engine Testing Branch, E2E Flow & Daytime Ops](#april-12-2026--procurement-engine-testing-branch-e2e-flow--daytime-ops)
+- [April 13, 2026 — TEE Security, Token Efficiency & Agentic Trust](#april-13-2026--tee-security-token-efficiency--agentic-trust)
 
 ---
 
@@ -293,6 +294,56 @@ Hands-on development on the Procurement-Engine project: Nico directed creation o
 - **Security**: 16,000+ Fortinet devices compromised via symlink backdoor (flagged from overnight news)
 
 Full details: [2026-04-12-procurement-engine-testing-e2e.md](./2026-04-12-procurement-engine-testing-e2e.md)
+
+---
+
+## April 13, 2026 — TEE Security, Token Efficiency & Agentic Trust
+
+### Key Takeaways
+
+#### Deep Research: Trusted Execution Environments (TEEs) for AI Agents
+
+Comprehensive research into TEEs — hardware-isolated execution that protects data *in use* — and their application to autonomous AI agents, Solana wallet security, and verifiable inference.
+
+- **TEE overhead is negligible for production**: <7% on H100 GPUs, approaching 0% for large models. Security benefit vastly outweighs performance cost.
+- **dstack** provides Docker Compose-native TEE deployment — no code changes needed. Powers OpenRouter and NEAR AI.
+- **ERC-8004** combines TEE attestation with on-chain identity for verifiable AI agents. TEE-derived keys never exist outside the enclave.
+- **ElizaOS** has first-class TEE support — Ed25519 Solana key derivation inside TEE, wallet-bound compute.
+- **Proof-of-Guardrail** paper: TEEs can prove *what code ran*, but cannot prove *correct behavior*. Hardware attestation is necessary but not sufficient.
+- **Anthropic's confidential inference**: 3-component architecture (API Server + Secure Loader + GPU TEE), end-to-end encrypted from client to enclave.
+- **Direct Solana applications**: TEE-secured trading agents, on-chain identity for agents, cross-chain key management, proof-of-guardrail for fintech compliance.
+
+#### Architecture: Token Efficiency (Rotation #3 of 5)
+
+Deep dive into 10 papers on LLM token optimization for agents. **Biggest wins are simplest**: progressive skill loading, tool result pruning, and prompt cache hierarchy save 40-60% tokens with low complexity.
+
+- **SkillReducer proves "less-is-more"** — removing noise from skills improves performance by 2.8%
+- **Tool schemas are the silent token sink** — 30K→1.5K tokens with no quality loss (ITR paper)
+- **Static routing beats dynamic** — simple threshold routing outperforms complex cascading
+- **Anthropic underutilized features**: Tool Search + defer_loading (85%+ tool context reduction), native compaction (58.6% at 150K threshold)
+- **10 concrete proposals** filed: P1-P4 are must-have (low complexity), P5-P7 should-have, P8-P10 nice-to-have
+
+#### Daydream: Stigmergic Immune Memory (IMAP Protocol)
+
+Cross-domain synthesis: ant colony stigmergy + biological immune memory + TEE attestation. AI agents are already doing accidental stigmergy (leaving traces on the web). The IMAP protocol proposes 4 layers of graduated trust.
+
+- **Innate Attestation** (gut feel) — behavioral fingerprint matching via embedding model
+- **Adaptive Attestation** (specific check) — TEE attestation + on-chain identity
+- **Costimulation Gate** — both signals required for high-stakes actions
+- **Memory with Decay** — 30-day half-life, context-tagged, reinforced by positive interactions
+- **Design principle**: "Trust should be expensive to maintain and cheap to lose"
+- **Treg Auditor** concept: separate agent that samples trusted interactions for anomalies
+
+#### News Highlights
+
+- **Anthropic Claude Mythos** — 10T param model withheld as too powerful. Found thousands of zero-days.
+- **First U.S. pro-crypto law signed** — IRS DeFi broker rule permanently voided. GENIUS Act next.
+- **Microsoft Agent Framework** — AutoGen + Semantic Kernel unified. MCP interoperability standard.
+- **GPT-4.1** — coding-first models, nano at $0.10/M input tokens
+- **OpenAI shut down Sora** — $15M/day compute vs $2.1M lifetime revenue
+- **Canada spot Solana ETFs** launched; Coinbase Solana 5x faster
+
+Full details: [2026-04-13-tee-security-token-efficiency-agentic-trust.md](./2026-04-13-tee-security-token-efficiency-agentic-trust.md)
 
 ---
 
