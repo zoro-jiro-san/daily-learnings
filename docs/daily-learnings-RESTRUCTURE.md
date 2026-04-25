@@ -1,3 +1,393 @@
+# `daily-learnings/` Repository Restructure — Proposal
+
+**Date:** 2026-04-26
+**Current State:** Ad-hoc research reports in root
+**Target State:** Layered Second Brain architecture with raw → wiki → index pipeline
+
+---
+
+## Executive Summary
+
+This document proposes restructuring the `/home/tokisaki/work/synthesis/` repository from a flat collection of research reports into a formal **Second Brain** system with three canonical layers (raw sources, compiled wiki, indexed schema). The restructure introduces proper directory namespaces, build scripts, cron automation, and Obsidian vault integration — transforming disparate markdown files into a living, queryable knowledge graph.
+
+---
+
+## Current Structure → New Structure Mapping
+
+### Current Layout (What exists today)
+
+```
+/home/tokisaki/work/synthesis/
+├── BATCH_A_SUMMARY.md               # Research batch summary
+├── RESEARCH_SUMMARY.md              # General research summary
+├── research_synthesis.md            # Synthesis research findings
+├── research_toprank.md              # Top-rank research
+├── research_vibe_trading.md         # Vibe-trading research
+├── research_agentic_inbox.md        # Agentic inbox research
+├── KEEP_ADAPT_DISCARD.md            # Skill curation decisions
+├── SKILL_LINKING_STRATEGY.md        # Skill linking plan
+├── README.md                        # Minimal current readme
+├── build_edges.py                   # Graph builder (exists)
+├── entities.json                    # Entity list (exists)
+├── entities.quick.json              # Quick entity index (exists)
+├── entities.raw.json                # Raw entity data (exists)
+├── wiki_patterns.md                 # Design patterns (exists)
+│
+├── graph/                           # Knowledge graph directory
+│   ├── nodes.json
+│   ├── edges.json
+│   ├── nodes_and_edges.json
+│   ├── schema.md
+│   └── ...
+│
+└── skills/                          # Raw skill files (disorganized)
+    ├── obscura/
+    │   └── SKILL.md
+    ├── chainyo-claude-task-master/
+    │   └── SKILL.md
+    ├── anthropic-claude-ads/
+    │   └── SKILL.md
+    ├── agentic-stack-agentic-stack/
+    │   └── SKILL.md
+    ├── toprank/
+    │   └── SKILL.md
+    ├── vibe-trading/
+    │   └── SKILL.md
+    ├── claude-ads/
+    │   └── SKILL.md
+    ├── claude-task-master/
+    │   └── SKILL.md
+    ├── [27 more skill directories...]
+    └── synthesis/
+        └── SKILL.md
+```
+
+**Problems with current layout:**
+- Research reports sit in root with no canonical organization
+- No separation between raw sources and compiled wiki
+- Graph files exist but are not integrated into query workflow
+- Skills directory lacks category structure; unclear which are active
+- No automation (cron jobs) or CLI tools
+- Obsidian integration not configured
+
+---
+
+### Target Layout (After restructuring)
+
+```
+/home/tokisaki/work/synthesis/
+│
+├── AGENTS.md                        # Agent operational schema (moved from wiki_patterns.md)
+├── SECOND_BRAIN_ARCHITECTURE.md     # Full architecture spec (this deliverable)
+├── README.md                        # Comprehensive repo documentation (rewritten)
+├── cron_jobs.md                     # Cron schedule specification
+├── symlink_setup.sh                 # Skill symlink installer (idempotent)
+│
+├── raw/                             # LAYER 1: Immutable source documents
+│   ├── articles/                    # Web clippings, blog posts, summaries
+│   │   ├── 2026-04-25-llm-wiki-karpathy.md
+│   │   ├── 2026-04-26-cognee-graphrag.md
+│   │   └── ...
+│   ├── papers/                      # Academic papers (text-extracted)
+│   │   ├── 2025-karpathy-llm-education.txt
+│   │   └── ...
+│   ├── repos/                       # GitHub repos (README + tree)
+│   │   ├── anthropic-claude-ads/
+│   │   │   ├── README.md
+│   │   │   └── structure.txt
+│   │   └── ...
+│   ├── transcripts/                 # Voice/video transcripts
+│   ├── images/                      # Diagrams, charts (with captions)
+│   └── data/                        # Tables, JSON, CSV
+│
+├── wiki/                            # LAYER 2: LLM-compiled Markdown knowledge base
+│   ├── index.md                     # Auto-generated TOC (page catalog)
+│   ├── log.md                       # Append-only action log
+│   ├── overview.md                  # Getting started guide
+│   ├── AGENTS_SCHEMA.md             # Copy of root AGENTS.md (agent reference)
+│   │
+│   ├── concepts/                    # Abstract ideas, patterns, frameworks
+│   │   ├── llm-wiki-pattern.md
+│   │   ├── graphrag.md
+│   │   ├── knowledge-compounding.md
+│   │   └── ...
+│   │
+│   ├── entities/                    # Real-world entities
+│   │   ├── person/
+│   │   │   ├── andrej-karpathy.md
+│   │   │   ├── anthropic.md
+│   │   │   └── ...
+│   │   ├── organization/
+│   │   │   ├── nous-research.md
+│   │   │   ├── openai.md
+│   │   │   └── ...
+│   │   ├── software/
+│   │   │   ├── claude.md
+│   │   │   ├── obsidian.md
+│   │   │   └── ...
+│   │   └── tool/
+│   │       ├── cognee.md
+│   │       ├── langchain.md
+│   │       └── ...
+│   │
+│   ├── sources/                     # Per-source summaries (derived from raw/)
+│   │   ├── 2026-04-25-llm-wiki-pattern.md
+│   │   ├── 2026-04-26-cognee-knowledge-engine.md
+│   │   └── ...
+│   │
+│   ├── comparisons/                 # Comparative analyses
+│   │   ├── rag-vs-graphrag.md
+│   │   └── crewai-vs-autogen.md
+│   │
+│   ├── synthesis/                   # Query-derived knowledge (filed back)
+│   │   ├── 2026-04-25-market-analysis.md
+│   │   └── ...
+│   │
+│   └── drafts/                      # In-progress pages (auto-cleaned monthly)
+│
+├── memory/                          # LAYER 3 (Indexed): Schema + configuration
+│   ├── index/                       # Compiled index (list of all wiki pages)
+│   │   └── pages.json               # Machine-readable index
+│   └── config.json                  # System configuration (LLM model, paths)
+│
+├── skills/                          # Canonical skill repository (source of truth)
+│   ├── obscura-ai-obscura/          # Project directory name retained for ID
+│   │   └── SKILL.md
+│   ├── chainyo-claude-task-master/
+│   │   └── SKILL.md
+│   ├── anthropic-claude-ads/
+│   │   └── SKILL.md
+│   ├── agentic-stack-agentic-stack/
+│   │   └── SKILL.md
+│   ├── toprank/
+│   │   └── SKILL.md
+│   ├── vibe-trading/
+│   │   └── SKILL.md
+│   └── [all other skill repos...]
+│
+├── index/                           # Derived indexes & search aids
+│   ├── page_index.json              # {slug: {title, path, classification, ...}}
+│   ├── entity_index.json            # {entity_name: [page_slugs]}
+│   ├── concept_index.json           # {concept_name: [page_slugs]}
+│   └── search_index/                # Full-text search (Whoosh/MiniLM)
+│       └── ...
+│
+├── cron/                            # Cron job scripts
+│   ├── health_check.sh
+│   ├── daily_sync.sh
+│   ├── weekly_digest.sh
+│   └── monthly_clean.sh
+│
+├── graph/                           # Knowledge graph files (persisted)
+│   ├── nodes.json
+│   ├── edges.json
+│   ├── nodes_and_edges.json
+│   ├── schema.md
+│   └── cache/                       # Embeddings, query cache
+│
+├── queries/                         # Saved query results & analysis
+│   ├── 2026-04-25-what-is-graphrag.md
+│   └── ...
+│
+├── reports/                         # Generated reports (lint, digest, metrics)
+│   ├── lint_2026-04-26.md
+│   ├── weekly_digest_2026-04-26.md
+│   └── metrics.json
+│
+├── tools/                           # CLI implementations
+│   ├── hermes-brain-compile
+│   ├── hermes-brain-query
+│   ├── hermes-brain-lint
+│   └── __init__.py
+│
+└── docs/                            # Extended documentation
+    ├── USER_GUIDE.md
+    ├── SCHEMA_REFERENCE.md
+    ├── TROUBLESHOOTING.md
+    └── API_REFERENCE.md
+```
+
+---
+
+## Directory-by-Directory Migration Plan
+
+### 1. `research-swarm/` → `raw/` + `wiki/sources/`
+
+**Current:** Research reports (`*.md`) sit in root or `research-swarm/` (if that dir existed).
+
+**Migration:**
+- Move each research report (e.g., `research_synthesis.md`) into `raw/articles/` with date prefix
+- Agent automatically generates `wiki/sources/` summary during compile
+- Research batch summaries (e.g., `BATCH_A_SUMMARY.md`) → `wiki/synthesis/` after ingestion
+
+**Example:**
+```bash
+# Before (flat)
+research_synthesis.md              → directly in root
+
+# After (structured)
+raw/articles/2026-04-26-research-synthesis.md   # Raw version (unchanged)
+wiki/synthesis/2026-04-26-research-synthesis.md # Compiled summary page
+```
+
+**Action:** Manual move + re-run `hermes-brain-compile` to generate wiki/sources pages.
+
+---
+
+### 2. `memory/` → `memory/` + `index/`
+
+**Current:** `entities.json`, `entities.quick.json`, `entities.raw.json` exist in root.
+
+**Migration:**
+- Create `memory/index/` directory
+- Run `build_edges.py` to produce `index/pages.json`, `index/entities.json`, `index/concepts.json`
+- Move `entities.*.json` → `memory/backup/` (preserve originals, new source is `index/`)
+
+**Action:** Run existing `build_edges.py` script; redirect output to `index/`.
+
+---
+
+### 3. `skills/` → `skills/` (same location) + `~/.hermes/skills/` symlinks
+
+**Current:** `skills/` contains 30+ skill directories with `SKILL.md` each.
+
+**Migration:**
+- **No file moves needed** — `skills/` remains as canonical source
+- Run `symlink_setup.sh` to create category-organized symlinks in `~/.hermes/skills/`
+- Skills get categorized (mlops, autonomous-ai-agents, product-strategy, etc.)
+
+**Directory structure post-symlink:**
+```
+~/.hermes/skills/
+├── mlops/
+│   └── obscura/                    → skills/obscura-ai-obscura/
+├── autonomous-ai-agents/
+│   ├── claude-task-master/          → skills/chainyo-claude-task-master/
+│   └── agentic-stack/              → skills/agentic-stack-agentic-stack/
+├── product-strategy/
+│   └── claude-ads/                 → skills/anthropic-claude-ads/
+└── infrastructure/
+    └── coolify/                    → skills/coolify/
+```
+
+**Action:** Execute `./symlink_setup.sh`.
+
+---
+
+### 4. `cron/` (new)
+
+**Create:** `/home/tokisaki/work/synthesis/cron/` with four scripts:
+
+| Script | Purpose | Trigger |
+|--------|---------|---------|
+| `health_check.sh` | Run `hermes-brain-lint --fast`; alert on critical errors | Hourly |
+| `daily_sync.sh`   | Pull new research → compile wiki → update graph → digest | Daily 3 AM |
+| `weekly_digest.sh`| Run full lint → generate insights summary → Telegram/Email | Weekly Sunday 6 AM |
+| `monthly_clean.sh`| Prune drafts, compress logs, database maintenance | Monthly 1st 2 AM |
+
+**Action:** Write scripts, make executable (`chmod +x`), install via `crontab -e`.
+
+---
+
+### 5. `index/` (new)
+
+**Create:** `/home/tokisaki/work/synthesis/index/` for derived search indexes.
+
+**Contents:**
+- `page_index.json`: `{ "llm-wiki-pattern": {title, path, classification, tags, ...}, ... }`
+- `entity_index.json`: `{ "Andrej Karpathy": ["person/andrej-karpathy"], "Claude": ["software/claude"], ... }`
+- `concept_index.json`: `{ "GraphRAG": ["concepts/graphrag", "comparisons/rag-vs-graphrag"], ... }`
+- `search_index/`: Full-text search engine (Whoosh/MiniLM embeddings + FAISS index)
+
+**Population:** Generated by `hermes-brain-compile` as final step.
+
+---
+
+### 6. Graph files (`graph/`)
+
+**Current:** `graph.nodes.json`, `graph.edges.json`, `graph.schema.md` exist.
+
+**Migration:**
+- Keep graph files in `graph/`
+- Add `build_edges.py` output to graph as `graph/latest.edges.json`
+- Add embedding cache: `graph/cache/embeddings.npy`
+
+**Note:** Graph already exists and is functional; just ensure it updates on each compile.
+
+---
+
+### 7. Research files in root → `raw/` or `wiki/synthesis/`
+
+**Current files in root:**
+- `BATCH_A_SUMMARY.md`
+- `RESEARCH_SUMMARY.md`
+- `research_synthesis.md`
+- `research_toprank.md`
+- `research_vibe_trading.md`
+- `research_agentic_inbox.md`
+- `KEEP_ADAPT_DISCARD.md`
+- `SKILL_LINKING_STRATEGY.md`
+
+**Migration plan:**
+
+| Current File | Destination | Rationale |
+|--------------|-------------|-----------|
+| `research_synthesis.md` | `raw/articles/2026-04-26-research-synthesis.md` | Becomes raw source |
+| `research_toprank.md` | `raw/articles/2026-04-??-toprank-research.md` | Raw source |
+| `research_vibe_trading.md` | `raw/articles/2026-04-??-vibe-trading.md` | Raw source |
+| `research_agentic_inbox.md` | `raw/articles/2026-04-??-agentic-inbox.md` | Raw source |
+| `BATCH_A_SUMMARY.md` | `wiki/synthesis/2026-04-26-batch-a-summary.md` | Synthesis page (filed answer) |
+| `RESEARCH_SUMMARY.md` | `wiki/synthesis/2026-04-26-research-summary.md` | Synthesis page |
+| `KEEP_ADAPT_DISCARD.md` | `wiki/synthesis/2026-04-26-skill-curation.md` | Curation decision log |
+| `SKILL_LINKING_STRATEGY.md` | `wiki/synthesis/2026-04-26-skill-linking-strategy.md` | Strategy doc |
+
+**Action:** Manual move (or symlink for preservation), then re-run compile to regenerate as proper wiki pages.
+
+---
+
+## Tools Directory Structure
+
+```
+tools/
+├── hermes-brain-compile          # Main CLI entry point (bash or python)
+├── hermes-brain-query
+├── hermes-brain-lint
+├── hermes-brain-graph            # Graph manipulation utilities
+├── hermes-brain-digest           # Generate daily/weekly digests
+└── __init__.py                   # Shared library (ingest, graph, lint modules)
+```
+
+**Implementation choice:** Python package with console scripts (install via `pip install -e .`).
+
+---
+
+## README Rewrite Specification
+
+### What the README Should Document
+
+| Section | Purpose | Content |
+|---------|---------|---------|
+| **Title & Badges** | Identify project | "Hermes Second Brain" + build/version badges |
+| **Tagline** | One-line elevator pitch | "AI-native personal knowledge management that compounds" |
+| **Architecture Diagram** | Visual system overview | Mermaid flowchart: raw → wiki → query |
+| **Quick Start** | 5-min setup | `git clone`, install deps, run `hermes-brain-compile` |
+| **Directory Layout** | File organization | Tree diagram of `raw/`, `wiki/`, `index/`, etc. |
+| **CLI Reference** | Commands | `hermes-brain-compile`, `query`, `lint` usage |
+| **Workflows** | Common tasks | "Add new research", "Ask a question", "Fix broken links" |
+| **Automation** | Scheduled jobs | Cron schedule and what they do |
+| **Obsidian Integration** | Vault setup | How to open in Obsidian, recommended plugins |
+| **Skill Linking** | Hermes skills integration | `symlink_setup.sh` usage |
+| **Graph Schema** | Node/edge types | Reference table |
+| **Cost Estimates** | $$ expectations | Monthly cost at 1000 sources |
+| **Troubleshooting** | Fix common issues | Broken symlinks, compile failures, lint errors |
+| **Contributing** | How to extend | Add new source types, modify schema |
+| **License** | Terms | MIT |
+
+---
+
+## README Contents (Full Markdown)
+
+```markdown
 # Hermes Second Brain
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
@@ -551,3 +941,4 @@ Special thanks to Nous Research for Hermes Agent.
 
 ---
 
+*End of README specification*
