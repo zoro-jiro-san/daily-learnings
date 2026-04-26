@@ -1,0 +1,12 @@
+#!/bin/bash
+# System-level weekly cleanup — distro debris (Hermes ops handled separately)
+set -euo pipefail
+
+apt-get clean 2>/dev/null || true
+rm -rf /var/cache/thumbnails/* 2>/dev/null || true
+rm -rf /home/*/.cache/lxsession/* 2>/dev/null || true
+find /tmp -mindepth 1 -maxdepth 1 -mtime +3 -delete 2>/dev/null || true
+journalctl --vacuum-size=100M 2>/dev/null || true
+find /home/tokisaki/.hermes -name "*.log" -mtime +30 -delete 2>/dev/null || true
+
+echo "System cleanup complete ($(date))"

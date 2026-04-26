@@ -1,0 +1,8 @@
+# journald caps — low-disk optimization (2026-04-26)
+[Journal]
+Storage=auto
+RuntimeMaxUse=100M
+SystemMaxUse=200M
+MaxRetentionSec=7d
+ForwardToSyslog=yes
+MaxLevelSyslog=err
