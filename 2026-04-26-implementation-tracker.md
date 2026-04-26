@@ -92,4 +92,18 @@ Telegram bot can send `/hermes disk` / `/hermes ram` if telemetry skill installe
 1. Run `sysops/install-lowres-optimizations.sh` with sudo (or individual steps)
 2. Monitor disk usage for 3 days (`df -h /home /tmp`)
 3. If cache regrowth exceeds 100 MB, consider lowering `MAX_TOTAL_MB` in `cache_manager.py`
-4. Optional: add Telegram `/hermes disk` command to daily summary
+4. Optional: add Telegram `/hermes disk` command to daily summary### 3. 24/7 Disk Space Monitor ✓
+
+- **scripts/disk-monitor.sh** — 5-minute interval watchdog (thresholds: 5/3/2 GB)
+- **scripts/disk_cleanup_wrapper.py** — standalone CLI for plugin quick/deep
+- **crontab** — `*/5 * * * *` hook installed for `tokisaki` user
+- **Config** — `plugins.enabled += ["disk-cleanup"]` in `~/.hermes/config.yaml`
+- **Monitoring** — logs to `~/.hermes/disk-monitor.log` + Hermes cron output
+- **Alerts** — Telegram hooks prepared (awaiting `hermes telegram` CLI)
+
+**Repos updated:** `hermes-agent-architecture`, `daily-learnings`
+
+---
+
+
+
